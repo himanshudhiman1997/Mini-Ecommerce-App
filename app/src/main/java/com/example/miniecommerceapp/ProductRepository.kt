@@ -6,15 +6,16 @@ import kotlinx.coroutines.withContext
 
 class ProductRepository {
 
+    private val client = ApiClient().getClient()
+
     suspend fun getProductList(): List<ProductCardViewState> {
         return withContext(Dispatchers.IO) {
-
-            delay(2000)
-            (1..3).map {
+            client.getProductList().map {
                 ProductCardViewState(
-                    "Playstation $it",
-                    "This is a nice console! Check it out.",
-                    "299 USD"
+                    it.title,
+                    it.description,
+                    "US $ ${it.price}",
+                    it.imageUrl
                 )
             }
         }
