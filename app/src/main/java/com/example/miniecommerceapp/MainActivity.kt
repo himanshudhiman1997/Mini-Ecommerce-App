@@ -3,7 +3,9 @@ package com.example.miniecommerceapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.miniecommerceapp.databinding.ActivityMainBinding
 
@@ -11,28 +13,27 @@ class MainActivity : AppCompatActivity() {
 
     private val adapter = ProductCardListAdapter()
 
+    private val viewModel: ProductListViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.viewProductList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.viewProductList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.viewProductList.adapter = adapter
 
-        updateUI(binding, ProductListViewState.Content((1..3).map {
-            ProductCardViewState(
-                "Playstation $it",
-                "This is a nice console! Check it out.",
-                "299 USD"
-            )
-        }))
+        viewModel.viewState.observe(this) { viewState ->
+            updateUI(binding, viewState)
+        }
 
-        //updateUI(binding, ProductListViewState.Error("No products found!!"))
+        viewModel.loadProductList()
     }
 
     private fun updateUI(binding: ActivityMainBinding, viewState: ProductListViewState) {
-        when(viewState) {
+        when (viewState) {
             is ProductListViewState.Content -> {
                 binding.viewProductList.isVisible = true
                 binding.errorView.isVisible = false
