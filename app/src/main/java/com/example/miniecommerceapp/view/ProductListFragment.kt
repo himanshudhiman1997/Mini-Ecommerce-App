@@ -15,7 +15,9 @@ import com.example.miniecommerceapp.ProductCardViewState
 import com.example.miniecommerceapp.ProductListViewModel
 import com.example.miniecommerceapp.ProductListViewState
 import com.example.miniecommerceapp.databinding.ProductListFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductListFragment : Fragment() {
 
     private lateinit var binding: ProductListFragmentBinding
