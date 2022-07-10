@@ -1,4 +1,4 @@
-package com.example.miniecommerceapp
+package com.example.miniecommerceapp.shared.data.repository.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

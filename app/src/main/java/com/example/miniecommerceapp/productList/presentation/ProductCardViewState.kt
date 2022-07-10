@@ -1,4 +1,4 @@
-package com.example.miniecommerceapp
+package com.example.miniecommerceapp.productList.presentation
 
 data class ProductCardViewState(
     val title: String,

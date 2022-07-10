@@ -1,4 +1,4 @@
-package com.example.miniecommerceapp
+package com.example.miniecommerceapp.shared.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

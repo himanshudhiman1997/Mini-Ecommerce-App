@@ -1,4 +1,4 @@
-package com.example.miniecommerceapp
+package com.example.miniecommerceapp.productList.presentation
 
 sealed class ProductListViewState {
     object Loading : ProductListViewState()

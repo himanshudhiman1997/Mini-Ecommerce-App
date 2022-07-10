@@ -1,8 +1,8 @@
-package com.example.miniecommerceapp
+package com.example.miniecommerceapp.productList.data
 
 data class ProductEntity (
     val title: String,
     val description: String,
-    val price: String,
+    val price: Double,
     val imageUrl: String
 )

@@ -1,14 +1,15 @@
-package com.example.miniecommerceapp
+package com.example.miniecommerceapp.productList.presentation
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.example.miniecommerceapp.R
 import com.example.miniecommerceapp.databinding.ProductCardBinding
 
-class ProductCardListAdapter(val onItemClicked: (ProductCardViewState) -> Unit) : RecyclerView.Adapter<ProductCardListAdapter.ViewHolder>() {
+class ProductCardListAdapter(val onItemClicked: (ProductCardViewState) -> Unit) :
+    RecyclerView.Adapter<ProductCardListAdapter.ViewHolder>() {
     private var data: List<ProductCardViewState> = emptyList()
 
     override fun onCreateViewHolder(
@@ -36,12 +37,16 @@ class ProductCardListAdapter(val onItemClicked: (ProductCardViewState) -> Unit) 
 
         fun bind(productCardViewState: ProductCardViewState) {
             val bind = ProductCardBinding.bind(itemView)
-            bind.viewProductName.text = productCardViewState.title
-            bind.viewProductDescription.text = productCardViewState.description
-            bind.productPrice.text = productCardViewState.price
 
-            Glide.with(itemView.context).load(productCardViewState.imageUrl)
-                .into(bind.productImage)
+            bind.apply {
+                viewProductName.text = productCardViewState.title
+                viewProductDescription.text = productCardViewState.description
+                productPrice.text = productCardViewState.price
+
+                Glide.with(itemView.context).load(productCardViewState.imageUrl)
+                    .into(productImage)
+            }
+
 
             itemView.setOnClickListener {
                 onItemClicked(productCardViewState)

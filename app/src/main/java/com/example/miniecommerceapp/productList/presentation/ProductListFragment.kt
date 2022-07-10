@@ -1,4 +1,4 @@
-package com.example.miniecommerceapp.view
+package com.example.miniecommerceapp.productList.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,13 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.miniecommerceapp.ProductCardListAdapter
-import com.example.miniecommerceapp.ProductCardViewState
-import com.example.miniecommerceapp.ProductListViewModel
-import com.example.miniecommerceapp.ProductListViewState
 import com.example.miniecommerceapp.databinding.ProductListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
