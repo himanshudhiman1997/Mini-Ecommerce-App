@@ -3,6 +3,7 @@ package com.example.miniecommerceapp.productList.presentation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.miniecommerceapp.R
@@ -42,6 +43,22 @@ class ProductCardListAdapter(val onItemClicked: (ProductCardViewState) -> Unit) 
                 viewProductName.text = productCardViewState.title
                 viewProductDescription.text = productCardViewState.description
                 productPrice.text = productCardViewState.price
+
+                viewWishlistIcon.setImageDrawable(
+                    if (productCardViewState.isFavorite) {
+                        ResourcesCompat.getDrawable(
+                            viewWishlistIcon.resources,
+                            R.drawable.ic_baseline_favorite,
+                            null
+                        )
+                    } else {
+                        ResourcesCompat.getDrawable(
+                            viewWishlistIcon.resources,
+                            R.drawable.ic_baseline_favorite_disabled,
+                            null
+                        )
+                    }
+                )
 
                 Glide.with(itemView.context).load(productCardViewState.imageUrl)
                     .into(productImage)

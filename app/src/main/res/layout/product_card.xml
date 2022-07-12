@@ -95,7 +95,6 @@
             android:background="@drawable/border"
             android:padding="8dp"
             android:src="@drawable/ic_baseline_favorite"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/buyButton"
             app:layout_constraintEnd_toStartOf="@id/buyButton"
             app:layout_constraintTop_toTopOf="@id/buyButton" />
