@@ -9,7 +9,10 @@ import com.bumptech.glide.Glide
 import com.example.miniecommerceapp.R
 import com.example.miniecommerceapp.databinding.ProductCardBinding
 
-class ProductCardListAdapter(val onItemClicked: (ProductCardViewState) -> Unit) :
+class ProductCardListAdapter(
+    val onItemClicked: (ProductCardViewState) -> Unit,
+    val onFavoriteItemClicked: (ProductCardViewState) -> Unit
+) :
     RecyclerView.Adapter<ProductCardListAdapter.ViewHolder>() {
     private var data: List<ProductCardViewState> = emptyList()
 
@@ -32,6 +35,7 @@ class ProductCardListAdapter(val onItemClicked: (ProductCardViewState) -> Unit) 
 
     fun setData(productList: List<ProductCardViewState>) {
         this.data = productList
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -59,6 +63,10 @@ class ProductCardListAdapter(val onItemClicked: (ProductCardViewState) -> Unit) 
                         )
                     }
                 )
+
+                viewWishlistIcon.setOnClickListener {
+                    onFavoriteItemClicked.invoke(productCardViewState)
+                }
 
                 Glide.with(itemView.context).load(productCardViewState.imageUrl)
                     .into(productImage)

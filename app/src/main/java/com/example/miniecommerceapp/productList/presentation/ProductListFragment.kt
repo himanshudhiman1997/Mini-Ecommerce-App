@@ -16,10 +16,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProductListFragment : Fragment() {
 
     private lateinit var binding: ProductListFragmentBinding
-    private val adapter = ProductCardListAdapter(::onItemClicked)
+    private val adapter = ProductCardListAdapter(::onItemClicked, ::onFavoriteItemClicked)
 
     private fun onItemClicked(productCardViewState: ProductCardViewState) {
         findNavController().navigate(ProductListFragmentDirections.actionProductListFragmentToProductDetailsFragment())
+    }
+
+    private fun onFavoriteItemClicked(viewState: ProductCardViewState) {
+        viewModel.favoriteIconClicked(viewState.id)
     }
 
     private val viewModel: ProductListViewModel by viewModels()
