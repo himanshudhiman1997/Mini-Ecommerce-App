@@ -2,9 +2,9 @@ package com.example.miniecommerceapp.shared.wishlist.data.repository
 
 interface WishlistRepository {
 
-    fun isFavorite(productId: String): Boolean
+    suspend fun isFavorite(productId: String): Boolean
 
-    fun addToWishlist(productId: String)
+    suspend fun addToWishlist(productId: String)
 
-    fun removeFromWishlist(productId: String)
+    suspend fun removeFromWishlist(productId: String)
 }

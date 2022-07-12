@@ -1,14 +1,20 @@
 package com.example.miniecommerceapp.di
 
+import android.content.Context
+import androidx.room.Room
+import com.example.miniecommerceapp.productDetails.presentation.ProductDetailsViewState
 import com.example.miniecommerceapp.shared.data.repository.api.ApiClient
 import com.example.miniecommerceapp.shared.data.repository.ProductRepository
 import com.example.miniecommerceapp.shared.data.repository.api.ProductRepositoryAPI
 import com.example.miniecommerceapp.shared.data.repository.api.ProductService
 import com.example.miniecommerceapp.shared.wishlist.data.repository.WishlistDatabaseRepository
 import com.example.miniecommerceapp.shared.wishlist.data.repository.WishlistRepository
+import com.example.miniecommerceapp.shared.wishlist.data.repository.database.AppDatabase
+import com.example.miniecommerceapp.shared.wishlist.data.repository.database.WishlistDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
@@ -32,4 +38,15 @@ class RepositoryModule {
     fun providesWishlistRepository(wishlistDatabaseRepository: WishlistDatabaseRepository): WishlistRepository =
         wishlistDatabaseRepository
 
+    @Provides
+    fun providesWishlistDatabaseRepository(wishlistDAO: WishlistDAO): WishlistDatabaseRepository {
+        return WishlistDatabaseRepository(wishlistDAO)
+    }
+
+    @Provides
+    fun providesWishlistDAO(@ApplicationContext context: Context): WishlistDAO {
+        val db =
+            Room.databaseBuilder(context, AppDatabase::class.java, "ecommerce_database").build()
+        return db.wishlistDao()
+    }
 }
