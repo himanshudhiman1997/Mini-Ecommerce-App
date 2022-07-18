@@ -2,15 +2,15 @@ package com.example.miniecommerceapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.miniecommerceapp.productDetails.presentation.ProductDetailsViewState
 import com.example.miniecommerceapp.shared.data.repository.api.ApiClient
 import com.example.miniecommerceapp.shared.data.repository.ProductRepository
 import com.example.miniecommerceapp.shared.data.repository.api.ProductRepositoryAPI
 import com.example.miniecommerceapp.shared.data.repository.api.ProductService
-import com.example.miniecommerceapp.shared.wishlist.data.repository.WishlistDatabaseRepository
+import com.example.miniecommerceapp.shared.wishlist.data.repository.database.WishlistDatabaseRepository
 import com.example.miniecommerceapp.shared.wishlist.data.repository.WishlistRepository
 import com.example.miniecommerceapp.shared.wishlist.data.repository.database.AppDatabase
 import com.example.miniecommerceapp.shared.wishlist.data.repository.database.WishlistDAO
+import com.example.miniecommerceapp.shared.wishlist.data.repository.sharedprefs.WishlistSharedPrefRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,9 +34,13 @@ class RepositoryModule {
     fun providesProductRepository(productRepositoryAPI: ProductRepositoryAPI): ProductRepository =
         productRepositoryAPI
 
-    @Provides
+    /*@Provides
     fun providesWishlistRepository(wishlistDatabaseRepository: WishlistDatabaseRepository): WishlistRepository =
-        wishlistDatabaseRepository
+        wishlistDatabaseRepository*/
+
+    @Provides
+    fun providesWishlistRepository(wishlistSharedPrefRepo: WishlistSharedPrefRepo): WishlistRepository =
+        wishlistSharedPrefRepo
 
     @Provides
     fun providesWishlistDatabaseRepository(wishlistDAO: WishlistDAO): WishlistDatabaseRepository {
@@ -48,5 +52,10 @@ class RepositoryModule {
         val db =
             Room.databaseBuilder(context, AppDatabase::class.java, "ecommerce_database").build()
         return db.wishlistDao()
+    }
+
+    @Provides
+    fun providesWishlistSharedPrefRepo(@ApplicationContext context: Context): WishlistSharedPrefRepo {
+        return WishlistSharedPrefRepo(context)
     }
 }

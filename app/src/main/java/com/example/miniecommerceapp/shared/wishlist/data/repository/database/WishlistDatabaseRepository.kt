@@ -1,7 +1,6 @@
-package com.example.miniecommerceapp.shared.wishlist.data.repository
+package com.example.miniecommerceapp.shared.wishlist.data.repository.database
 
-import com.example.miniecommerceapp.shared.wishlist.data.repository.database.FavoriteProductEntity
-import com.example.miniecommerceapp.shared.wishlist.data.repository.database.WishlistDAO
+import com.example.miniecommerceapp.shared.wishlist.data.repository.WishlistRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
