@@ -7,8 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.miniecommerceapp.shared.data.repository.ProductRepository
 import com.example.miniecommerceapp.shared.wishlist.business.AddOrRemoveFromWishlistUseCase
 import com.example.miniecommerceapp.shared.wishlist.business.IsProductInWishlistUseCase
-import com.example.miniecommerceapp.shared.wishlist.data.repository.WishlistRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,7 +17,8 @@ import javax.inject.Inject
 class ProductListViewModel @Inject constructor(
     private val repository: ProductRepository,
     private val isProductInWishlistUseCase: IsProductInWishlistUseCase,
-    private val addOrRemoveFromWishlistUseCase: AddOrRemoveFromWishlistUseCase
+    private val addOrRemoveFromWishlistUseCase: AddOrRemoveFromWishlistUseCase,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) :
     ViewModel() {
 
@@ -25,7 +27,7 @@ class ProductListViewModel @Inject constructor(
         get() = _viewState
 
     fun loadProductList() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             _viewState.postValue(ProductListViewState.Loading)
 
             //data to fetch products
@@ -44,7 +46,7 @@ class ProductListViewModel @Inject constructor(
     }
 
     fun favoriteIconClicked(productId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             addOrRemoveFromWishlistUseCase.execute(productId)
             val currentViewState = _viewState.value
             (currentViewState as? ProductListViewState.Content)?.let { content ->
